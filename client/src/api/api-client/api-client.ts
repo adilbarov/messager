@@ -16,7 +16,7 @@ export class ApiClient {
         }
 
         return await result.json()
-    }
+    } 
 
     public async post(path: string, body: Object, signal?: AbortSignal) {
         const result = await fetch(`${this.baseUrl}${path}`, {
