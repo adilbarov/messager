@@ -8,16 +8,15 @@ export const Messages: FC = observer(() => {
         services: {
             formatTime,
         },
-        chatId,
         userId,
         list
     }} = useStore()
 
     return (
         <div className='message-area'>
-            {list.filter((message) => chatId && message.chatId === +chatId).length > 0 ? 
+            {list.length > 0 ? 
                 <>
-                    {list.filter((message) => chatId && message.chatId === +chatId).map((message) =>
+                    {list.map((message) =>
                         <Message message={message} userId={userId} formatTime={formatTime} />
                     )}
                 </> 
