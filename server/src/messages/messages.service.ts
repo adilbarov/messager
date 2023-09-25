@@ -3,6 +3,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from './entities/message.entity';
 import { Repository } from 'typeorm';
+import { ChatQuery } from './types/types';
 
 @Injectable()
 export class MessagesService {
@@ -19,8 +20,9 @@ export class MessagesService {
     }))
   }
 
-  async search(): Promise<Message[]> {
+  async search(query: ChatQuery): Promise<Message[]> {
     return await this.messageRepository.find({
+      where: {chatId: query.chatId},
       order: {id: 'ASC'}
     })
   }

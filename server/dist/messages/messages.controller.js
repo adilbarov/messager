@@ -23,8 +23,8 @@ let MessagesController = class MessagesController {
     create(createMessageDto) {
         return this.messagesService.create(createMessageDto);
     }
-    search() {
-        return this.messagesService.search();
+    search(chatId) {
+        return this.messagesService.search({ chatId });
     }
 };
 exports.MessagesController = MessagesController;
@@ -38,8 +38,9 @@ __decorate([
 ], MessagesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('chatId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], MessagesController.prototype, "search", null);
 exports.MessagesController = MessagesController = __decorate([

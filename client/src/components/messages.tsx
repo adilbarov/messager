@@ -7,9 +7,9 @@ export const Messages: FC = observer(() => {
     const {messagesStore: {
         services: {
             formatTime,
-            chatId,
-            userId
         },
+        chatId,
+        userId,
         list
     }} = useStore()
 

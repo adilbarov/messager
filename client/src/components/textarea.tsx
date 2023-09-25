@@ -6,10 +6,10 @@ import { observer } from 'mobx-react-lite'
 export const Textarea = observer(() => {
     const {messagesStore: {
         services: {
-            textareaValue,
             handleSendBoxClick,
             handleChangeTextareaValue
-        }
+        },
+        textareaValue
     }} = useStore()
 
     return (

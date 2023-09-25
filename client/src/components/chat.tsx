@@ -25,7 +25,8 @@ export const Chat: FC = observer(() => {
     }, [userId, chatId])
 
     useAsyncEffect(() => {
-        initMessageList()
+        if (chatId)
+            initMessageList(+chatId)
     }, [])
 
     return (

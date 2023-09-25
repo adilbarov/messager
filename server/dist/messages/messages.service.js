@@ -28,8 +28,9 @@ let MessagesService = class MessagesService {
             chatId: createMessageDto.chatId
         }));
     }
-    async search() {
+    async search(query) {
         return await this.messageRepository.find({
+            where: { chatId: query.chatId },
             order: { id: 'ASC' }
         });
     }

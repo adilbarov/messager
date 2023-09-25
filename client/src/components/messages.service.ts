@@ -8,25 +8,17 @@ import { format } from "date-fns";
 export class MessagesService {
     private readonly messageApi: MessageApi
 
-    public textareaValue: string = ''
-
-    public userId: number = 0
-
-    public chatId: number = 0
-
-    public lastMessageDate: string = ''
-
     constructor(private readonly rootStore: RootStore, private readonly messagesStore: MessagesStore) {
         this.messageApi = rootStore.api.messageApi
         makeAutoObservable(this, {}, {autoBind: true})
     }
 
     setUserId(id: number) {
-        this.userId = id
+        this.messagesStore.userId = id
     }
 
     setChatId(id: number) {
-        this.chatId = id
+        this.messagesStore.chatId = id
     }
 
     setList(messages: MessageSchema[]) {
@@ -34,24 +26,24 @@ export class MessagesService {
     }
 
     handleChangeTextareaValue(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        this.textareaValue = e.target.value
+        this.messagesStore.textareaValue = e.target.value
     }
 
-    async initMessageList() {
-        const list = await this.messageApi.search()
+    async initMessageList(chatId: number) {
+        const list = await this.messageApi.search(chatId)
         this.messagesStore.list = list
     }
 
     async handleSendBoxClick() {
         const newMessage = {
-            title: this.textareaValue,
-            userId: this.userId,
-            chatId: this.chatId
+            title: this.messagesStore.textareaValue,
+            userId: this.messagesStore.userId,
+            chatId: this.messagesStore.chatId
         }
     
-        this.textareaValue = ''
+        this.messagesStore.textareaValue = ''
         await this.messageApi.create(newMessage)
-        this.initMessageList()
+        this.initMessageList(this.messagesStore.chatId)
     }
 
     formatTime(date: string) {

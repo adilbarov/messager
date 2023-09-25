@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, UsePipes, ValidationPipe, Query } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { ChatId } from './types/types';
 
 @Controller('messages')
 export class MessagesController {
@@ -13,7 +14,7 @@ export class MessagesController {
   }
 
   @Get()
-  search() {
-    return this.messagesService.search();
+  search(@Query('chatId') chatId: ChatId) {
+    return this.messagesService.search({chatId});
   }
 }
